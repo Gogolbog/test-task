@@ -10,11 +10,14 @@ import {
 } from "./StyledCard";
 import image from "../../Images/picture.png";
 import logo from "../../Images/Logo.svg";
+import { getUsers } from "../../services/Api";
 
 export const Card = () => {
   const number = 100500;
   const formattedNumber = number.toLocaleString();
   console.log(formattedNumber); // "100,500"
+
+  getUsers();
 
   return (
     <Li>
