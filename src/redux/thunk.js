@@ -13,7 +13,6 @@ export const getUsersThunk = createAsyncThunk(
   async ({ page, limit }) => {
     const offset = page * limit;
     const { data } = await axios.get(`/Users?limit=${limit}&offset=${offset}`);
-    console.log(data);
     return data;
   }
 );
