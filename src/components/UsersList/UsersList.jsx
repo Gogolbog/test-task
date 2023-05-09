@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersThunk } from "../../redux/thunk";
 import { useEffect, useState } from "react";
-import { UL } from "./StyledUsersList";
+import { DIV, UL } from "./StyledUsersList";
 import { Btn } from "../Btn/btn";
 import { Card } from "../Card/Card";
 
@@ -30,7 +30,7 @@ export const UsersList = () => {
   };
 
   return (
-    <>
+    <DIV>
       <UL>
         {loadedUsers.map((user) => (
           <li key={user.id}>
@@ -39,6 +39,6 @@ export const UsersList = () => {
         ))}
       </UL>
       {showBtn && <Btn handleLoadMore={handleLoadMore} />}
-    </>
+    </DIV>
   );
 };

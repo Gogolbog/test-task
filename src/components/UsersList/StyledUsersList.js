@@ -8,4 +8,10 @@ export const UL = styled.ul`
   padding: 0;
   margin-left: auto;
   margin-right: auto;
+  justify-content: center;
+`;
+
+export const DIV = styled.div`
+  margin: 0 auto;
+  text-align: center;
 `;
