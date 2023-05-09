@@ -3,6 +3,7 @@ import { getUsersThunk } from "./thunk";
 
 const handelFulfilledGet = (state, { payload }) => {
   state.items = payload;
+  state.isLoading = false;
 };
 
 const handelRejected = (state, { payload }) => {

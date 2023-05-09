@@ -4,15 +4,20 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://6457a2680c15cb14820d309d.mockapi.io";
 
-axios.interceptors.request.use((request) => {
-  return request;
-});
-
 export const getUsersThunk = createAsyncThunk(
   "Users/get",
-  async ({ page, limit }) => {
-    const offset = page * limit;
-    const { data } = await axios.get(`/Users?limit=${limit}&offset=${offset}`);
-    return data;
+  async ({ page, limit }, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`/Users`, {
+        params: {
+          page,
+          limit,
+        },
+      });
+
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
 );

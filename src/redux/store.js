@@ -14,7 +14,7 @@ import { usersReducer } from "./usersSlice";
 import { followReducer } from "./followingSlice";
 
 const persistConfig = {
-  key: "usersStore",
+  key: "usersLocal",
   storage,
 };
 

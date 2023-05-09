@@ -1,40 +1,44 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersThunk } from "../../redux/thunk";
-import { Card } from "../Card/Card";
 import { useEffect, useState } from "react";
 import { UL } from "./StyledUsersList";
 import { Btn } from "../Btn/btn";
+import { Card } from "../Card/Card";
 
 export const UsersList = () => {
   const dispatch = useDispatch();
-  const [page, setPage] = useState(1);
   const [showBtn, setShowBtn] = useState(false);
-  let limit = 3;
+  const [loadedUsers, setLoadedUsers] = useState([]);
+  const [limit, setLimit] = useState(3);
+  let page = 1;
 
   useEffect(() => {
     dispatch(getUsersThunk({ page, limit }));
   }, [dispatch, page, limit]);
 
-  const tweets = useSelector((state) =>
-    state.users.items.slice(0, page * limit)
-  );
+  const users = useSelector((state) => state.users.items);
 
   useEffect(() => {
-    setShowBtn(
-      tweets.length % limit === 0 && tweets.length !== 0 ? true : false
-    );
-  }, [tweets.length, limit]);
+    if (users.length > 0) {
+      setLoadedUsers(users);
+      setShowBtn(users.length === limit);
+    }
+  }, [users, limit]);
 
   const handleLoadMore = () => {
-    setPage(page + 1);
+    setLimit(limit + 3);
   };
 
   return (
-    <div>
+    <>
       <UL>
-        <Card tweets={tweets} />
+        {loadedUsers.map((user) => (
+          <li key={user.id}>
+            <Card props={user} />
+          </li>
+        ))}
       </UL>
       {showBtn && <Btn handleLoadMore={handleLoadMore} />}
-    </div>
+    </>
   );
 };
